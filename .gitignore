@@ -1,0 +1,11 @@
+# ignore all logs
+*.swp
+.idea/*.*
+.DS_Store
+*.swo
+*.swn
+configurations/__pycache__/*.*
+*/.ipynb_checkpoints/*.*
+*/__pycache__/*.*
+*/.DS_Store/*.*
+.idea/*
