@@ -31,7 +31,7 @@ def main():
             model.name = experiment_name
 
             if tuned:
-                parameters = pd.read_csv("param/p_p_arimaconf-sliding-sel-"+cluster+"-h0.csv").iloc[0] 
+                parameters = pd.read_csv("param/p_arima-"+cluster+"-h0.csv").iloc[0] 
                 p = {'p': parameters['p'],
                      'd': parameters['d'],
                      'q': parameters['q'],
