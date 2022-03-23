@@ -244,7 +244,7 @@ class HBNNPredictor(ModelInterface):
     def negative_loglikelihood(self, targets, estimated_distribution):
         return -estimated_distribution.log_prob(targets)
 
-    def prior(self, kernel_size, bias_size):
+    def prior(self, kernel_size, bias_size, dtype=None):
         n = kernel_size + bias_size
         prior_model = keras.Sequential(
             [
@@ -257,7 +257,7 @@ class HBNNPredictor(ModelInterface):
         )
         return prior_model
 
-    def posterior(self, kernel_size, bias_size):
+    def posterior(self, kernel_size, bias_size, dtype=None):
         n = kernel_size + bias_size
         posterior_model = keras.Sequential(
             [

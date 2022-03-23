@@ -34,44 +34,50 @@ for win in wins:
                 files = sorted(
                     glob.glob("saved_models/talos-HBNN-" + c + "-cpu-w" + str(win) + "-h" + str(h) + "*_weights.tf.i*"))
 
-                for i in range(len(files)):
-                    path_weight = files[-(i + 1)][:-6]
-
+                dense_act = 'relu'
+                if 'relu' in parameters['first_dense_activation']:
                     dense_act = 'relu'
-                    if 'relu' in parameters['first_dense_activation']:
-                        dense_act = 'relu'
-                    elif 'tanh' in parameters['first_dense_activation']:
-                        dense_act = 'tanh'
+                elif 'tanh' in parameters['first_dense_activation']:
+                    dense_act = 'tanh'
 
-                    p = {'first_conv_dim': parameters['first_conv_dim'],
-                         'first_conv_activation': parameters['first_conv_activation'],
-                         'second_lstm_dim': parameters['second_lstm_dim'],
-                         'first_dense_dim': parameters['first_dense_dim'],
-                         'first_dense_activation': dense_act,
-                         'batch_size': parameters['batch_size'],
-                         'epochs': parameters['epochs'],
-                         'patience': parameters['patience'],
-                         'optimizer': parameters['optimizer'],
-                         'batch_normalization': True,
-                         'lr': parameters['lr'],
-                         'momentum': parameters['momentum'],
-                         'decay': parameters['decay'],
-                         'pred_steps': 0,
-                         'weight_file': path_weight
-                         }
+                p = {'first_conv_dim': parameters['first_conv_dim'],
+                     'first_conv_activation': parameters['first_conv_activation'],
+                     'first_conv_kernel': (parameters['first_conv_kernel'],),
+                     'second_lstm_dim': parameters['second_lstm_dim'],
+                     'first_dense_dim': parameters['first_dense_dim'],
+                     'first_dense_activation': dense_act,
+                     'batch_size': parameters['batch_size'],
+                     'epochs': parameters['epochs'],
+                     'patience': parameters['patience'],
+                     'optimizer': parameters['optimizer'],
+                     'batch_normalization': True,
+                     'lr': parameters['lr'],
+                     'momentum': parameters['momentum'],
+                     'decay': parameters['decay'],
+                     'pred_steps': 0,
+                     }
 
-                    print("RESOURCE:", res, "CLUSTER:", c, "HORIZON:", h, "WIN:", win)
-                    model = LSTM_PBNN.LSTMPBNNPredictor()
-                    model.name = experiment_name
+                print("RESOURCE:", res, "CLUSTER:", c, "HORIZON:", h, "WIN:", win)
+                model = HBNN.HBNNPredictor()
+                model.name = experiment_name
 
-                    try:
-                        train_model, prediction_mean, prediction_std = model.load_and_predict(ds.X_train, ds.y_train,
-                                                                                              ds.X_test,
-                                                                                              ds.y_test, p)
-                    except:
-                        train_model, prediction_mean, prediction_std = model.training(ds.X_train, ds.y_train,
-                                                                                      ds.X_test,
-                                                                                      ds.y_test, p)
+                if len(files):
+                    for i in range(len(files)):
+                        path_weight = files[-(i + 1)][:-6]
+                        p['weight_file'] = path_weight
+                        try:
+                            train_model, prediction_mean, prediction_std = model.load_and_predict(ds.X_train,
+                                                                                                  ds.y_train,
+                                                                                                  ds.X_test,
+                                                                                                  ds.y_test, p)
+                        except:
+                            train_model, prediction_mean, prediction_std = model.training(ds.X_train, ds.y_train,
+                                                                                          ds.X_test,
+                                                                                          ds.y_test, p)
+                else:
+                    train_model, prediction_mean, prediction_std = model.training(ds.X_train, ds.y_train,
+                                                                                  ds.X_test,
+                                                                                  ds.y_test, p)
 
                 train_distribution = train_model(ds.X_train)
                 train_mean = np.concatenate(train_distribution.mean().numpy(), axis=0)

@@ -1,0 +1,2 @@
+model_checkpoint_path: "HBNN-cpu-a-w144-h20000_weights.tf"
+all_model_checkpoint_paths: "HBNN-cpu-a-w144-h20000_weights.tf"
