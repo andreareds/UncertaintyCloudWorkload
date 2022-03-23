@@ -7,6 +7,7 @@ from tensorflow.keras.layers import Dense, LSTM, Conv1D, Flatten, Activation, Dr
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import RMSprop, Adam, Nadam, SGD
 from tensorflow.keras.callbacks import EarlyStopping
+import tensorflow_probability as tfp
 from util import custom_keras
 from models.model_interface import ModelInterface
 from sklearn.metrics import mean_squared_error

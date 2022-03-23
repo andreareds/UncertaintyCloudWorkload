@@ -55,6 +55,7 @@ for tuning_rate in tuning_rates:
 
                         p = {'first_conv_dim': parameters['first_conv_dim'],
                              'first_conv_activation': parameters['first_conv_activation'],
+                             'first_conv_kernel': (parameters['first_conv_kernel'],),
                              'second_lstm_dim': parameters['second_lstm_dim'],
                              'first_dense_dim': parameters['first_dense_dim'],
                              'first_dense_activation': dense_act,
