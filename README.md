@@ -1,5 +1,8 @@
 # Bayesian Uncertainty Modelling for Cloud Workload Prediction
 
+## Introduction
+
+Providers of cloud computing systems need to allocate resources carefully in order to (i) meet the desired Quality of Service, and (ii) reduce waste due to overallocation. To allocate resources to service requests without excessive delays, we need to predict future demand. Current state-of-the-art methods such as Long Short-Term Memory-based (LSTM) models make only point predictions of demand and ignore uncertainty. Predicting a distribution would provide a more complete picture and inform resource scheduling decisions. We investigate DL models to predict workload distribution, and evaluate it on the Time Series forecasting of CPU and memory workload of 8 clusters in the Google Cloud data centre. Experiments show that the proposed models have a similar point forecast accuracy to the LSTM. However, they can provide better estimations of resource usage bounds, allowing a reduction of both overprediction and total predicted resources, maintaining good runtime performance.
 
 ## Python Packages
 * arch                      5.1.0
