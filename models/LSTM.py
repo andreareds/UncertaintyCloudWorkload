@@ -142,14 +142,14 @@ class LSTMPredictor(ModelInterface):
         return self.train_model
 
     def talos_model(self, X_train, y_train, x_val, y_val, p):
-        global opt
         input_shape = X_train.shape[1:]
+        
         self.train_model = Sequential([
             tf.keras.layers.Conv1D(filters=p['first_conv_dim'], kernel_size=p['first_conv_kernel'],
                                    strides=1, padding="causal",
                                    activation=p['first_conv_activation'],
                                    input_shape=input_shape),
-            tf.keras.layers.LSTM(p['second_lstm_dim']),  # return_sequences=True),
+            tf.keras.layers.LSTM(p['second_lstm_dim']),
             tf.keras.layers.Dense(p['first_dense_dim'], activation=p['first_dense_activation']),
             tf.keras.layers.Dense(1),
         ])
