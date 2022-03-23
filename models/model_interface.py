@@ -28,9 +28,5 @@ class ModelInterface:
         self.model.save(self.model_path + self.name + str(self.count_save).zfill(4) + '_model.tf', save_format="tf")
         self.count_save += 1
 
-    # def load_model(self, name):
-    #     self.model = load_model(self.model_path + name + '_model.tf',
-    #                             custom_objects={'Sampling': custom_keras.Sampling})
-
     def training(self, X_train, y_train, X_test, y_test, p):
         pass
