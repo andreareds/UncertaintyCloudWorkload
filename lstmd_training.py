@@ -45,7 +45,7 @@ for tuning_rate in tuning_rates:
                         best_model, best_history, best_prediction_mean, best_prediction_std = None, None, None, None
                         best_mse = 100000
 
-                        parameters = pd.read_csv("Tuned/tuned_lstmd_" + c + ".csv").iloc[0]
+                        parameters = pd.read_csv("hyperparams/p_lstmd-" + c + ".csv").iloc[0]
 
                         dense_act = 'relu'
                         if 'relu' in parameters['first_dense_activation']:
