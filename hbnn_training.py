@@ -29,7 +29,7 @@ for win in wins:
                                      resource=res)
                 ds.dataset_creation()
                 ds.data_summary()
-                parameters = pd.read_csv("Tuned/tuned_cpu_hbnn_" + c + ".csv").iloc[0]
+                parameters = pd.read_csv("hyperparams/p_hbnn-" + c + ".csv").iloc[0]
 
                 files = sorted(
                     glob.glob("saved_models/talos-HBNN-" + c + "-cpu-w" + str(win) + "-h" + str(h) + "*_weights.tf.i*"))
